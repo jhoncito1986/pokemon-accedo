@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de pokemon</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- <div class="parent">
+        <div class="div1"> </div>
+        <div class="div2"> </div>
+        <div class="div3"> </div>
+    </div> -->
+    <header id="title" class="wrapper py-20 justify-center display-2 text-center capitalize"><h1>Pokemones</h1></header>
+    <section id="list" class="wrapper wrapper-nowrap justify-center align-center py-20 px-15 ">
+        <div class="" >
+            <a href="/" class="btn btn-primary" style="width: 200px;">View All Pokemons</a>
+            
+            <ul id="abilities" class="m-10">
+            </ul>
+        </div>
+        <div class="wrapper w-50">
+            <img class="img" id="image" src="" alt="">
+            
+        </div>
+
+    </section>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const params = Object.fromEntries(urlParams.entries());
+        const url = 'https://pokeapi.co/api/v2/pokemon/'+params.id+'/';
+        const title = document.getElementById("title");
+        const abilities = document.getElementById("abilities")
+        const img = document.getElementById('image')
+        console.log(url);
+        window.onload = function(){
+            fetch(url)
+            .then(response => response.json())
+            .then(json =>{
+                title.innerHTML = json.name;
+                img.src = json.sprites.back_default
+                abilities.innerHTML= ''
+                
+                json.abilities.forEach((element, index) =>{
+                    console.log(element.ability.name);
+                    abilities.innerHTML +=`
+                        <li><p>${element.ability.name}</p></li> 
+                    `
+                })
+            })
+        }
+    </script>
+</body>
+</html>
